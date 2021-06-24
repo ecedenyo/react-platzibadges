@@ -1,5 +1,3 @@
-// const element = document.createElement('h1');
-// element.innerText = 'Hello, Platzi Badges!';
 
 // const container = document.getElementById('app');
 
