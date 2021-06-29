@@ -1,0 +1,24 @@
+.home {
+  min-height: calc(100vh - 60px);
+  background: url('../../images/stars.svg'), #1b1b25;
+  background-repeat: repeat;
+}
+
+.content {
+  color: white;
+  text-align: center;
+}
+
+.content h3 {
+  text-transform: uppercase;
+}
+
+.content span {
+  font-size: 2.5rem;
+}
+
+.content span:first-child {
+  border-right: 1px solid white;
+  padding-right: 25px;
+  margin-right: 25px;
+}
