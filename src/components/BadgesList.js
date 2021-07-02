@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
@@ -6,10 +7,55 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 function BadgesList(props) {
   const badges = props.badges;
 
+  const [query, setQuery] = React.useState('');
+
+  const filteredBadges = badges.filter((badge) => {
+    return `${badge.firstName.toLowerCase()} ${badge.lastName.toLowerCase()}`.includes(
+      query.toLowerCase(),
+    );
+  });
+
+  if (filteredBadges.length === 0) {
+    return (
+      <>
+        <div className="form-group">
+          <label>Filter Badges</label>
+          <input
+            type="text"
+            className="form-control"
+            value={query}
+            onChange={(e) => {
+              // console.log(e.target.value);
+              setQuery(e.target.value);
+            }}
+          />
+        </div>
+
+        <h3>No badges were found</h3>
+        <Link className="btn btn-primary" to="/badges/new">
+          Create new badge
+        </Link>
+      </>
+    );
+  }
+
   return (
     <div>
+      <div className="form-group">
+        <label>Filter Badges</label>
+        <input
+          type="text"
+          className="form-control"
+          value={query}
+          onChange={(e) => {
+            // console.log(e.target.value);
+            setQuery(e.target.value);
+          }}
+        />
+      </div>
+
       <ul className="list-unstyled">
-        {badges.map((badge) => {
+        {filteredBadges.map((badge) => {
           return (
             <li key={badge.id} className="shadow-sm p-3 mb-3 bg-body rounded">
               <img
