@@ -8,12 +8,17 @@ function BadgesList(props) {
   const badges = props.badges;
 
   const [query, setQuery] = React.useState('');
+  const [filteredBadges, setFilteredBadges] = React.useState(badges);
 
-  const filteredBadges = badges.filter((badge) => {
-    return `${badge.firstName.toLowerCase()} ${badge.lastName.toLowerCase()}`.includes(
-      query.toLowerCase(),
-    );
-  });
+  React.useMemo(() => {
+    const result = badges.filter((badge) => {
+      return `${badge.firstName.toLowerCase()} ${badge.lastName.toLowerCase()}`.includes(
+        query.toLowerCase(),
+      );
+    });
+
+    setFilteredBadges(result);
+  }, [badges, query]);
 
   if (filteredBadges.length === 0) {
     return (
