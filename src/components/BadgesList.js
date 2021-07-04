@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
+import Skeleton from 'react-loading-skeleton';
+
 function useSearchBadges(badges) {
   const [query, setQuery] = React.useState('');
   const [filteredBadges, setFilteredBadges] = React.useState(badges);
@@ -22,11 +24,28 @@ function useSearchBadges(badges) {
 }
 
 function BadgesList(props) {
-  const badges = props.badges;
+  const { isLoading, badges } = props;
+
+  const SkeletonList = (placeholder) => (
+    <li className="shadow-sm p-3 mb-3 bg-body rounded">
+      <Skeleton
+        circle={true}
+        width={80}
+        height={80}
+        className="float-start me-3"
+      />
+      <Skeleton width={200} />
+      <br />
+      <Skeleton width={100} />
+      <br />
+      <Skeleton width={250} />
+      <br />
+    </li>
+  );
 
   const { query, setQuery, filteredBadges } = useSearchBadges(badges);
 
-  if (filteredBadges.length === 0) {
+  if (!isLoading && filteredBadges.length === 0) {
     return (
       <>
         <div className="form-group">
@@ -66,31 +85,38 @@ function BadgesList(props) {
       </div>
 
       <ul className="list-unstyled">
-        {filteredBadges.map((badge) => {
-          return (
-            <li key={badge.id} className="shadow-sm p-3 mb-3 bg-body rounded">
-              <img
-                src={badge.avatarUrl}
-                alt="Avatar"
-                className="float-start me-3"
-              />
-              <span>
-                {badge.firstName} {badge.lastName}
-              </span>
-              <br />
-              <FontAwesomeIcon icon={faTwitter} className="text-primary me-1" />
-              <a
-                href={`https://twitter.com/${badge.twitter}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {badge.twitter}
-              </a>
-              <br />
-              <span>{badge.jobTitle}</span>
-            </li>
-          );
-        })}
+        {isLoading ? (
+          <Skeleton wrapper={SkeletonList} count={5} />
+        ) : (
+          filteredBadges.map((badge) => {
+            return (
+              <li key={badge.id} className="shadow-sm p-3 mb-3 bg-body rounded">
+                <img
+                  src={badge.avatarUrl}
+                  alt="Avatar"
+                  className="float-start me-3"
+                />
+                <span>
+                  {badge.firstName} {badge.lastName}
+                </span>
+                <br />
+                <FontAwesomeIcon
+                  icon={faTwitter}
+                  className="text-primary me-1"
+                />
+                <a
+                  href={`https://twitter.com/${badge.twitter}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {badge.twitter}
+                </a>
+                <br />
+                <span>{badge.jobTitle}</span>
+              </li>
+            );
+          })
+        )}
       </ul>
     </div>
   );

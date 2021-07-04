@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './styles/Badges.css';
 import BadgesList from '../components/BadgesList';
 import confLogo from '../images/badge-header.svg';
-import PageLoading from '../components/PageLoading';
+// import PageLoading from '../components/PageLoading';
 import PageError from '../components/PageError';
 
 import api from '../api';
@@ -63,9 +63,9 @@ export class Badges extends Component {
   render() {
     console.count('2. render()');
 
-    if (this.state.loading === true) {
-      return <PageLoading />;
-    }
+    // if (this.state.loading === true) {
+    //   return <PageLoading />;
+    // }
 
     if (this.state.error) {
       return <PageError error={this.state.error} />;
@@ -94,7 +94,10 @@ export class Badges extends Component {
 
           <div className="Badges__list">
             <div className="Badges__container">
-              <BadgesList badges={this.state.data} />
+              <BadgesList
+                isLoading={this.state.loading}
+                badges={this.state.data}
+              />
             </div>
           </div>
         </div>
