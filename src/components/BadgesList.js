@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import BadgePicture from './BadgePicture';
 
 import Skeleton from 'react-loading-skeleton';
 
@@ -91,10 +92,9 @@ function BadgesList(props) {
           filteredBadges.map((badge) => {
             return (
               <li key={badge.id} className="shadow-sm p-3 mb-3 bg-body rounded">
-                <img
-                  src={badge.avatarUrl}
-                  alt="Avatar"
+                <BadgePicture
                   className="float-start me-3"
+                  email={badge.email}
                 />
                 <span>
                   {badge.firstName} {badge.lastName}

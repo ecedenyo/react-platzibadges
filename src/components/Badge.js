@@ -1,8 +1,8 @@
 import React from 'react';
 
-import md5 from 'md5';
 import './styles/Badge.css';
 import confLogo from '../images/badge-header.svg';
+import BadgePicture from './BadgePicture';
 
 class Badge extends React.Component {
   render() {
@@ -12,11 +12,7 @@ class Badge extends React.Component {
           <img src={confLogo} alt="Logo de la Conferencia" />
         </div>
         <div className="Badge__section-name">
-          <img
-            className="Badge__avatar"
-            src={`https://secure.gravatar.com/avatar/${md5(this.props.email)}`}
-            alt="Avatar"
-          />
+          <BadgePicture className="Badge__avatar" email={this.props.email} />
           <h1>
             {this.props.firstName} <br />
             {this.props.lastName}
