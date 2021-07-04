@@ -5,6 +5,7 @@ import './styles/Badges.css';
 import BadgesList from '../components/BadgesList';
 import confLogo from '../images/badge-header.svg';
 import PageLoading from '../components/PageLoading';
+import PageError from '../components/PageError';
 
 import api from '../api';
 
@@ -67,7 +68,7 @@ export class Badges extends Component {
     }
 
     if (this.state.error) {
-      return `Error: ${this.state.error.message}`;
+      return <PageError error={this.state.error} />;
     }
 
     return (
