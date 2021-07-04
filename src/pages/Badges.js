@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './styles/Badges.css';
 import BadgesList from '../components/BadgesList';
 import confLogo from '../images/badge-header.svg';
+import PageLoading from '../components/PageLoading';
 
 import api from '../api';
 
@@ -62,7 +63,7 @@ export class Badges extends Component {
     console.count('2. render()');
 
     if (this.state.loading === true) {
-      return 'Loading ...';
+      return <PageLoading />;
     }
 
     if (this.state.error) {
