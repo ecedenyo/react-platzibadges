@@ -44,12 +44,13 @@ function BadgesList(props) {
     </li>
   );
 
-  const { query, setQuery, filteredBadges } = useSearchBadges(badges);
+  // const { query, setQuery, filteredBadges } = useSearchBadges(badges);
+  const filteredBadges = badges;
 
   if (!isLoading && filteredBadges.length === 0) {
     return (
       <>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>Filter Badges</label>
           <input
             type="text"
@@ -60,7 +61,7 @@ function BadgesList(props) {
               setQuery(e.target.value);
             }}
           />
-        </div>
+        </div> */}
 
         <h3>No badges were found</h3>
         <Link className="btn btn-primary" to="/badges/new">
@@ -71,8 +72,8 @@ function BadgesList(props) {
   }
 
   return (
-    <div>
-      <div className="form-group">
+    <>
+      {/* <div className="form-group">
         <label>Filter Badges</label>
         <input
           type="text"
@@ -83,22 +84,20 @@ function BadgesList(props) {
             setQuery(e.target.value);
           }}
         />
-      </div>
+      </div> */}
 
       <ul className="list-unstyled">
-        {isLoading ? (
+        {isLoading && !filteredBadges ? (
           <Skeleton wrapper={SkeletonList} count={5} />
         ) : (
           filteredBadges.map((badge) => {
             return (
               <Link
+                key={badge.id}
                 className="text-reset text-decoration-none"
                 to={`/badges/${badge.id}/edit`}
               >
-                <li
-                  key={badge.id}
-                  className="shadow-sm p-3 mb-3 bg-body rounded"
-                >
+                <li className="shadow-sm p-3 mb-3 bg-body rounded">
                   <BadgePicture
                     className="float-start me-3"
                     email={badge.email}
@@ -111,13 +110,7 @@ function BadgesList(props) {
                     icon={faTwitter}
                     className="text-primary me-1"
                   />
-                  <a
-                    href={`https://twitter.com/${badge.twitter}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {badge.twitter}
-                  </a>
+                  {badge.twitter}
                   <br />
                   <span>{badge.jobTitle}</span>
                 </li>
@@ -126,7 +119,7 @@ function BadgesList(props) {
           })
         )}
       </ul>
-    </div>
+    </>
   );
 }
 
