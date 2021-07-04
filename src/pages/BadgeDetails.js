@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import header from '../images/platziconf-logo.svg';
 import Badge from '../components/Badge';
 import './styles/BadgeDetails.css';
+import Modal from '../components/Modal';
 
 function BadgeDetails(props) {
   const badge = props.badge;
@@ -45,7 +46,19 @@ function BadgeDetails(props) {
         <div className="row mt-3">
           <div className="col-6 offset-3">
             <div className="Badges__buttons">
-              <button className="btn btn-danger me-2">Delete</button>
+              <button
+                onClick={props.onOpenModal}
+                className="btn btn-danger me-2"
+              >
+                Delete
+              </button>
+              <Modal isOpen={props.modalIsOpen} onClose={props.onCloseModal}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta
+                quos esse eligendi sapiente illum. Asperiores libero, voluptates
+                cupiditate nihil quas, dolores soluta natus, molestiae deserunt
+                sequi iste eum voluptatem blanditiis.
+              </Modal>
+
               <Link to={`/badges/${badge.id}/edit`} className="btn btn-primary">
                 Edit
               </Link>
