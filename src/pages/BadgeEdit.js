@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-import './styles/BadgeNew.css';
+import './styles/BadgeEdit.css';
 import header from '../images/platziconf-logo.svg';
 import Badge from '../components/Badge';
 import BadgeForm from '../components/BadgeForm';
 import api from '../api';
 import PageLoading from '../components/PageLoading';
 
-class BadgeNew extends Component {
+class BadgeEdit extends Component {
   state = {
-    loading: false,
+    loading: true,
     error: null,
     form: {
       firstName: '',
@@ -18,6 +18,21 @@ class BadgeNew extends Component {
       jobTitle: '',
       twitter: '',
     },
+  };
+
+  componentDidMount() {
+    this.fetchData();
+  }
+  fetchData = async () => {
+    this.setState({ loading: true, error: null });
+
+    try {
+      const data = await api.badges.read(this.props.match.params.badgeId);
+
+      this.setState({ loading: false, form: data });
+    } catch (e) {
+      this.setState({ loading: false, error: e });
+    }
   };
 
   handleChange = (e) => {
@@ -38,7 +53,7 @@ class BadgeNew extends Component {
     try {
       console.log(this.state.form);
 
-      await api.badges.create(this.state.form);
+      await api.badges.update(this.props.match.params.badgeId, this.state.form);
 
       this.setState({ loading: false });
 
@@ -55,11 +70,11 @@ class BadgeNew extends Component {
 
     return (
       <React.Fragment>
-        <div className="BadgeNew__hero">
+        <div className="BadgeEdit__hero">
           <img
             src={header}
             alt="Logo"
-            className="BadgeNew__hero-image img-fluid"
+            className="BadgeEdit__hero-image img-fluid"
           />
         </div>
 
@@ -77,7 +92,7 @@ class BadgeNew extends Component {
             </div>
 
             <div className="col">
-              <h1>New Attendant</h1>
+              <h1>Edit Attendant</h1>
               <BadgeForm
                 onChange={this.handleChange}
                 onSubmit={this.handleSubmit}
@@ -92,4 +107,4 @@ class BadgeNew extends Component {
   }
 }
 
-export default BadgeNew;
+export default BadgeEdit;

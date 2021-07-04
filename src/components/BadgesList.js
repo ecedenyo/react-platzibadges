@@ -91,29 +91,37 @@ function BadgesList(props) {
         ) : (
           filteredBadges.map((badge) => {
             return (
-              <li key={badge.id} className="shadow-sm p-3 mb-3 bg-body rounded">
-                <BadgePicture
-                  className="float-start me-3"
-                  email={badge.email}
-                />
-                <span>
-                  {badge.firstName} {badge.lastName}
-                </span>
-                <br />
-                <FontAwesomeIcon
-                  icon={faTwitter}
-                  className="text-primary me-1"
-                />
-                <a
-                  href={`https://twitter.com/${badge.twitter}`}
-                  target="_blank"
-                  rel="noreferrer"
+              <Link
+                className="text-reset text-decoration-none"
+                to={`/badges/${badge.id}/edit`}
+              >
+                <li
+                  key={badge.id}
+                  className="shadow-sm p-3 mb-3 bg-body rounded"
                 >
-                  {badge.twitter}
-                </a>
-                <br />
-                <span>{badge.jobTitle}</span>
-              </li>
+                  <BadgePicture
+                    className="float-start me-3"
+                    email={badge.email}
+                  />
+                  <span>
+                    {badge.firstName} {badge.lastName}
+                  </span>
+                  <br />
+                  <FontAwesomeIcon
+                    icon={faTwitter}
+                    className="text-primary me-1"
+                  />
+                  <a
+                    href={`https://twitter.com/${badge.twitter}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {badge.twitter}
+                  </a>
+                  <br />
+                  <span>{badge.jobTitle}</span>
+                </li>
+              </Link>
             );
           })
         )}
