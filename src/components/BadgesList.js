@@ -95,7 +95,7 @@ function BadgesList(props) {
               <Link
                 key={badge.id}
                 className="text-reset text-decoration-none"
-                to={`/badges/${badge.id}/edit`}
+                to={`/badges/${badge.id}`}
               >
                 <li className="shadow-sm p-3 mb-3 bg-body rounded">
                   <BadgePicture
