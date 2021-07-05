@@ -44,24 +44,22 @@ function BadgesList(props) {
     </li>
   );
 
-  // const { query, setQuery, filteredBadges } = useSearchBadges(badges);
-  const filteredBadges = badges;
+  const { query, setQuery, filteredBadges } = useSearchBadges(badges);
 
   if (!isLoading && filteredBadges.length === 0) {
     return (
       <>
-        {/* <div className="form-group">
+        <div className="form-group">
           <label>Filter Badges</label>
           <input
             type="text"
             className="form-control"
             value={query}
             onChange={(e) => {
-              // console.log(e.target.value);
               setQuery(e.target.value);
             }}
           />
-        </div> */}
+        </div>
 
         <h3>No badges were found</h3>
         <Link className="btn btn-primary" to="/badges/new">
@@ -72,22 +70,21 @@ function BadgesList(props) {
   }
 
   return (
-    <>
-      {/* <div className="form-group">
+    <div className="BadgesList">
+      <div className="form-group mb-3">
         <label>Filter Badges</label>
         <input
           type="text"
           className="form-control"
           value={query}
           onChange={(e) => {
-            // console.log(e.target.value);
             setQuery(e.target.value);
           }}
         />
-      </div> */}
+      </div>
 
       <ul className="list-unstyled">
-        {isLoading && !filteredBadges ? (
+        {isLoading && filteredBadges.length === 0 ? (
           <Skeleton wrapper={SkeletonList} count={5} />
         ) : (
           filteredBadges.map((badge) => {
@@ -119,7 +116,7 @@ function BadgesList(props) {
           })
         )}
       </ul>
-    </>
+    </div>
   );
 }
 
